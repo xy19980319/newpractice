@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>全选案例</title>
+    <style>
+        table {
+            border: 1px solid;
+            width: 500px;
+            margin: auto;
+        }
+
+        div {
+            margin: 50px;
+        }
+
+        td, th {
+            text-align: center;
+            border: 1px solid;
+        }
+    </style>
+</head>
+<body>
+<div align="center">
+    <input type="text" name="id" id="id" placeholder="请输入编号">
+    <input type="text" name="name" id="name" placeholder="请输入姓名">
+    <input type="text" name="gender" id="gender" placeholder="请输入性别">
+    <input type="submit" id="btn_submit" value="添加">
+</div>
+<table align="center" id="table">
+    <caption>学生信息表</caption>
+    <tr>
+        <th>
+            编号
+        </th>
+        <th>
+            姓名
+        </th>
+        <th>
+            性别
+        </th>
+        <th>
+            操作
+        </th>
+    </tr>
+    <tr>
+        <td>
+            1
+        </td>
+        <td>
+            令狐冲
+        </td>
+        <td>
+            男
+        </td>
+        <td>
+            <a href="javascript:void(0);" onclick="mdel(this);">删除</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            2
+        </td>
+        <td>
+            任我行
+        </td>
+        <td>
+            男
+        </td>
+        <td>
+            <a href="javascript:void(0);" onclick="mdel(this);">删除</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            3
+        </td>
+        <td>
+            岳不群
+        </td>
+        <td>
+            ?
+        </td>
+        <td>
+            <a href="javascript:void(0);" onclick="mdel(this);">删除</a>
+        </td>
+    </tr>
+</table>
+<!--<script>
+    btn_submit.onclick = function () {
+        var id = document.getElementById("id").value;
+        var name = document.getElementById("name").value;
+        var gender = document.getElementById("gender").value;
+        var btn_submit = document.getElementById("btn_submit");
+        var table = document.getElementById("table");
+        //创建一个tr
+        var tr = document.createElement("tr");
+        //创造一个id的td
+        var td_id = document.createElement("td");
+        //创建一个id的文本节点
+        var text_id = document.createTextNode(id);
+        //将文本节点加到id的td里面
+        td_id.appendChild(text_id);
+        //将id的td添加到tr里面
+        tr.appendChild(td_id);
+        //创建安一个name的td
+        var td_name = document.createElement("td");
+        //将name文本放在name文本里
+        var text_name = document.createTextNode(name);
+        //将text接到name上
+        td_name.appendChild(text_name);
+        //将td接到tr上
+        tr.appendChild(td_name);
+
+        var td_gender = document.createElement("td");
+        var text_gender = document.createTextNode(gender);
+        td_gender.appendChild(text_gender);
+        tr.appendChild(td_gender);
+
+        var td_del = document.createElement("td");
+        var a = document.createElement("a");
+        a.setAttribute("href","javascript:void(0);");
+        a.setAttribute("onclick" , "mdel(this);");
+        var del_text = document.createTextNode("删除");
+        a.appendChild(del_text);
+        td_del.appendChild(a);
+        tr.appendChild(td_del);
+
+        table.appendChild(tr);
+        
+
+
+    }
+    function mdel(obj) {
+        var table = obj.parentNode.parentNode.parentNode;
+        var tr = obj.parentNode.parentNode;
+        table.removeChild(tr);
+    }
+</script>-->
+<script>
+    btn_submit.onclick = function () {
+        var id = document.getElementById("id").value;
+        var name = document.getElementById("name").value;
+        var gender = document.getElementById("gender").value;
+        var table = document.getElementById("table");
+        /*var btn_submit = document.getElementById("btn_submit");
+        //创建一个tr
+        var tr = document.createElement("tr");
+        //创造一个id的td
+        var td_id = document.createElement("td");
+        //创建一个id的文本节点
+        var text_id = document.createTextNode(id);
+        //将文本节点加到id的td里面
+        td_id.appendChild(text_id);
+        //将id的td添加到tr里面
+        tr.appendChild(td_id);
+        //创建安一个name的td
+        var td_name = document.createElement("td");
+        //将name文本放在name文本里
+        var text_name = document.createTextNode(name);
+        //将text接到name上
+        td_name.appendChild(text_name);
+        //将td接到tr上
+        tr.appendChild(td_name);
+
+        var td_gender = document.createElement("td");
+        var text_gender = document.createTextNode(gender);
+        td_gender.appendChild(text_gender);
+        tr.appendChild(td_gender);
+
+        var td_del = document.createElement("td");
+        var a = document.createElement("a");
+        a.setAttribute("href","javascript:void(0);");
+        a.setAttribute("onclick" , "mdel(this);");
+        var del_text = document.createTextNode("删除");
+        a.appendChild(del_text);
+        td_del.appendChild(a);
+        tr.appendChild(td_del);
+
+        table.appendChild(tr);
+*/
+        table.innerHTML += " <tr>\n" +
+            "        <td>\n" +
+            id +
+            "        </td>\n" +
+            "        <td>\n" +
+            name +
+            "        </td>\n" +
+            "        <td>\n" +
+            gender +
+            "        </td>\n" +
+            "        <td>\n" +
+            "            <a href=\"javascript:void(0);\" onclick=\"mdel(this);\">删除</a>\n" +
+            "        </td>\n" +
+            "    </tr>";
+       /* var tableInner = table.innerHTML;
+        tableInner+= " <tr>\n" +
+            "        <td>\n" +
+            id +
+            "        </td>\n" +
+            "        <td>\n" +
+            name +
+            "        </td>\n" +
+            "        <td>\n" +
+            gender +
+            "        </td>\n" +
+            "        <td>\n" +
+            "            <a href=\"javascript:void(0);\" onclick=\"mdel(this);\">删除</a>\n" +
+            "        </td>\n" +
+            "    </tr>";*/
+
+    }
+
+    function mdel(obj) {
+        var table = obj.parentNode.parentNode.parentNode;
+        var tr = obj.parentNode.parentNode;
+        table.removeChild(tr);
+    }
+
+</script>
+</body>
+</html>

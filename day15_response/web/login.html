@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload = function () {
+            var pic = document.getElementById("pic");
+            var check = document.getElementById("check");
+            pic.onclick = function () {
+                var date = new Date().getTime();
+                pic.src ="/day15/checkServlet?" + date;
+            }
+            check.onclick = function() {
+                var date = new Date().getTime();
+                pic.src ="/day15/checkServlet?" + date;
+            }
+        }
+
+
+    </script>
+</head>
+<body>
+<form action="" method="post">
+    用户名:<input type="text" name="username"> <br>
+    密码:<input type="password" name="password"><br>
+    验证码:<img id="pic" src="/day15/checkServlet" alt="">
+    <a id="check" href="javascrip:void(0)">看不清楚?换一张</a><br>
+    <input type="submit" value="登录">
+
+</form>
+</body>
+</html>
