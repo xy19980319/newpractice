@@ -18,4 +18,8 @@ public interface userDao {
     public int update(User user);
 
     void delSelected(String[] uids);
+
+    int getTotalCounts();
+
+    List<User> findByPage(int currentPage, int rows);
 }

@@ -34,10 +34,11 @@
                 location.href = "${pageContext.request.contextPath}/deleteServlet?id=" + id;
             }
         }
-        window.onload=function() {
+
+        window.onload = function () {
             var delselect = document.getElementById("delselect");
             delselect.onclick = function () {
-                if(confirm("您确定要删除这些条目吗?")) {
+                if (confirm("您确定要删除这些条目吗?")) {
                     var idform = document.getElementById("idform");
                     idform.submit();
                 }
@@ -45,7 +46,7 @@
             }
             var first = document.getElementById("fircheck");
             var uids = document.getElementsByName("uid");
-            first.onclick=function () {
+            first.onclick = function () {
                 for (var i = 0; i < uids.length; i++) {
                     uids[i].checked = this.checked;
                 }
@@ -87,59 +88,77 @@
     </div>
     <form action="${pageContext.request.contextPath}/delSelectedServlet" method="post" id="idform">
         <table border="1" class="table table-bordered table-hover">
-        <tr class="success">
-            <th><input type="checkbox" id="fircheck" ></th>
-            <th>编号</th>
-            <th>姓名</th>
-            <th>性别</th>
-            <th>年龄</th>
-            <th>籍贯</th>
-            <th>QQ</th>
-            <th>邮箱</th>
-            <th>操作</th>
-        </tr>
-
-        <c:forEach items="${users}" var="user" varStatus="s">
-            <tr>
-                <input type="hidden" name="id" value="${user.id}">
-                <td><input type="checkbox" name="uid" value="${user.id}"></td>
-                <td>${s.count}</td>
-                <td>${user.name}</td>
-                <td>${user.gender}</td>
-                <td>${user.age}</td>
-                <td>${user.address}</td>
-                <td>${user.qq}</td>
-                <td>${user.email}</td>
-                <td><a class="btn btn-default btn-sm" href="${pageContext.request.contextPath}/findByIdServlet?id=${user.id}">修改</a>&nbsp;
-                    <a class="btn btn-default btn-sm" href="javascript:deleteUser(${user.id});">删除</a></td>
+            <tr class="success">
+                <th><input type="checkbox" id="fircheck"></th>
+                <th>编号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>年龄</th>
+                <th>籍贯</th>
+                <th>QQ</th>
+                <th>邮箱</th>
+                <th>操作</th>
             </tr>
 
-        </c:forEach>
+            <c:forEach items="${users}" var="user" varStatus="s">
+                <tr>
+                    <input type="hidden" name="id" value="${user.id}">
+                    <td><input type="checkbox" name="uid" value="${user.id}"></td>
+                    <td>${s.count}</td>
+                    <td>${user.name}</td>
+                    <td>${user.gender}</td>
+                    <td>${user.age}</td>
+                    <td>${user.address}</td>
+                    <td>${user.qq}</td>
+                    <td>${user.email}</td>
+                    <td><a class="btn btn-default btn-sm"
+                           href="${pageContext.request.contextPath}/findByIdServlet?id=${user.id}">修改</a>&nbsp;
+                        <a class="btn btn-default btn-sm" href="javascript:deleteUser(${user.id});">删除</a></td>
+                </tr>
+
+            </c:forEach>
 
 
-    </table>
+        </table>
     </form>
 
     <div>
         <nav aria-label="Page navigation">
             <ul class="pagination">
-                <li>
-                    <a href="#" aria-label="Previous">
+                    <c:if test="${pageBean.currentPage == 1 }">
+                        <li class="previous disabled">
+                    </c:if>
+                    <c:if test="${pageBean.currentPage != 1 }">
+                        <li>
+                    </c:if>
+                    <a href="${pageContext.request.contextPath}/divPagesServlet?currentPage=${pageBean.currentPage - 1}&rows=5 "
+                       aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
+                <c:forEach begin="1" end="${pageBean.totalPages}" var="i" step="1">
+                    <c:if test="${i == pageBean.currentPage }">
+                        <li class="active">
+                    </c:if>
+                    <c:if test="${i != pageBean.currentPage }">
+                        <li>
+                    </c:if>
+                    <a href="${pageContext.request.contextPath}/divPagesServlet?currentPage=${i}&rows=5">${i}</a></li>
+                </c:forEach>
+
+                <c:if test="${pageBean.currentPage == pageBean.totalPages }">
+                <li class="previous disabled">
+                    </c:if>
+                    <c:if test="${pageBean.currentPage != pageBean.totalPages }">
                 <li>
-                    <a href="#" aria-label="Next">
+                    </c:if>
+                    <a href="${pageContext.request.contextPath}/divPagesServlet?currentPage=${pageBean.currentPage + 1}&rows=5 "
+                       aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
                 <span style="font-size: 25px;margin-left: 5px;">
-                    共16条记录，共4页
+                    共${pageBean.totalCounts}条记录，共${pageBean.totalPages}页
                 </span>
 
             </ul>

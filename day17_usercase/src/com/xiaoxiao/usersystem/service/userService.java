@@ -2,6 +2,7 @@ package com.xiaoxiao.usersystem.service;
 
 import com.xiaoxiao.usersystem.domain.Manager;
 import com.xiaoxiao.usersystem.domain.User;
+import com.xiaoxiao.usersystem.domain.pageBean;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ public interface userService {
     public User findById(String id);
     public int update(User user);
     void delSelected(String[] uids);
+
+    pageBean getPageBean(String currentPage, String rows);
 }
