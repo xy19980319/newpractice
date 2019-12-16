@@ -17,6 +17,9 @@
   </script>
 </head>
 <body>
+<div>
+  <h1>用户${sessionScope.manager},欢迎您的登录!</h1>
+</div>
 <div align="center">
   <a
           href="${pageContext.request.contextPath}/userListServlet" style="text-decoration:none;font-size:33px">查询所有用户信息
