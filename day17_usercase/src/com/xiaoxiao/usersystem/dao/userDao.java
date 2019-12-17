@@ -4,6 +4,7 @@ import com.xiaoxiao.usersystem.domain.Manager;
 import com.xiaoxiao.usersystem.domain.User;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Xiaoyu
@@ -19,7 +20,7 @@ public interface userDao {
 
     void delSelected(String[] uids);
 
-    int getTotalCounts();
+    int getTotalCounts(Map<String, String[]> condition);
 
-    List<User> findByPage(int currentPage, int rows);
+    List<User> findByPage(int currentPage, int rows, Map<String, String[]> condition);
 }

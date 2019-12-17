@@ -5,6 +5,7 @@ import com.xiaoxiao.usersystem.domain.User;
 import com.xiaoxiao.usersystem.domain.pageBean;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Xiaoyu
@@ -19,5 +20,6 @@ public interface userService {
     public int update(User user);
     void delSelected(String[] uids);
 
-    pageBean getPageBean(String currentPage, String rows);
+    pageBean getPageBean(String currentPage, String rows, Map<String, String[]> condition);
+
 }

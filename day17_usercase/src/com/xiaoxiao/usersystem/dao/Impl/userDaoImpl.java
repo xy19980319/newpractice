@@ -8,9 +8,8 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import javax.sql.DataSource;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Xiaoyu
@@ -94,16 +93,44 @@ public class userDaoImpl implements userDao {
     }
 
     @Override
-    public int getTotalCounts() {
-        String sql = "select count(*) from user";
+    public int getTotalCounts(Map<String, String[]> condition) {
+        String sql = "select count(*) from user where 1 = 1";
+        StringBuilder str = new StringBuilder(sql);
+        for (String s : condition.keySet()) {
+            if(s.equals("currentPage") || s.equals("rows")) {
+                continue;
+            }
+            String scondition = condition.get(s)[0];
+            if (scondition != null && !"".equals(scondition)) {
+                str.append(" and "+ s + " like " + "'%" + scondition+ "%' ");
+            }
+        }
+        sql = str.toString();
+        System.out.println(sql);
         int totalCounts = jdbcTemplate.queryForObject(sql, Integer.class);
         return totalCounts;
     }
 
     @Override
-    public List<User> findByPage(int currentPage, int rows) {
-        String sql = "select * from user limit ? , ?";
+    public List<User> findByPage(int currentPage, int rows, Map<String, String[]> condition) {
+        System.out.println(currentPage);
+        String sql = "select * from user where 1 = 1 ";
+        StringBuilder str = new StringBuilder(sql);
+        for (String s : condition.keySet()) {
+            if(s.equals("currentPage") || s.equals("rows")) {
+                continue;
+            }
+            String scondition = condition.get(s)[0];
+            if (scondition != null && !"".equals(scondition)) {
+                str.append(" and "+ s + " like " + "'%" + scondition+ "%' ");
+            }
+        }
+        System.out.println(currentPage);
+        str.append("limit ? , ?");
+        sql = str.toString();
+        System.out.println(sql);
         List<User> list = jdbcTemplate.query(sql, new BeanPropertyRowMapper<User>(User.class), (currentPage - 1) * rows, rows);
+
         return list;
     }
 }

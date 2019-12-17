@@ -25,7 +25,8 @@ public class DownloadServlet extends HttpServlet {
         //获取servlet公共域
         ServletContext servletContext = this.getServletContext();
         //拿到请求中的文件名去服务器中找到真实路径
-        String realPath = servletContext.getRealPath("/img/" + filename);
+        String realPath = servletContext.getRealPath("/img/111" + filename);
+        System.out.println(realPath);
         //关联输入流
         FileInputStream fis = new FileInputStream(realPath);
         //设置响应头

@@ -8,6 +8,7 @@ import com.xiaoxiao.usersystem.domain.pageBean;
 import com.xiaoxiao.usersystem.service.userService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Xiaoyu
@@ -75,7 +76,7 @@ public class userServiceImpl implements userService {
     }
 
     @Override
-    public pageBean getPageBean(String _currentPage, String _rows) {
+    public pageBean getPageBean(String _currentPage, String _rows, Map<String, String[]> condition) {
         int currentPage = Integer.parseInt(_currentPage);
         if (currentPage <= 0) {
             currentPage = 1;
@@ -87,14 +88,14 @@ public class userServiceImpl implements userService {
             rows = 5;
         }
         //拿到总记录条数数
-        int totalCounts = dao.getTotalCounts();
+        int totalCounts = dao.getTotalCounts(condition);
         //拿到总页码数
         int totalPages = (totalCounts % rows) == 0 ? (totalCounts / rows) : (totalCounts / rows) + 1;
         if (currentPage > totalPages) {
             currentPage = totalPages;
         }
         //拿到List集合
-        List<User> users = dao.findByPage(currentPage, rows);
+        List<User> users = dao.findByPage(currentPage, rows,condition);
         pageBean pageBean = new pageBean();
         pageBean.setTotalCounts(totalCounts);
         pageBean.setTotalPages(totalPages);
@@ -103,6 +104,8 @@ public class userServiceImpl implements userService {
         pageBean.setRows(rows);
         return pageBean;
     }
+
+
 
 
 }

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Xiaoyu
@@ -20,24 +21,27 @@ import java.util.List;
 @WebServlet("/divPagesServlet")
 public class DivPagesServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //设置编码格式
+        request.setCharacterEncoding("utf-8");
         //获取currentpage和rows
         String currentPage = request.getParameter("currentPage");
         String rows = request.getParameter("rows");
+        System.out.println(currentPage);
         if (currentPage == null || "".equals(currentPage)){
             currentPage = "1";
         }
         if (rows == null || "".equals(rows)){
-            currentPage = "5";
+            rows = "5";
         }
-
+        //获取参数map
+        Map<String, String[]> condition = request.getParameterMap();
         //创建服务层
         userService service = new userServiceImpl();
         //获取总数据条数
         // int totalCounts = service.getToatalCounts();
-        pageBean pageBean = service.getPageBean(currentPage,rows);
-        List<User> users = pageBean.getList();
+        pageBean pageBean = service.getPageBean(currentPage,rows,condition);
+        request.setAttribute("condition",condition);
         request.setAttribute("pageBean",pageBean);
-        request.setAttribute("users",users);
         request.getRequestDispatcher("list.jsp").forward(request,response);
 
 
